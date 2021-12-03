@@ -14,8 +14,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run script
-      run: entrypoint.sh
+    - name: git-bash
+      run: |
+         chmod +x ./entrypoint.sh
+         ./entrypoint.sh
+      shell: bash
 
     - name: Upload Crash
       uses: actions/upload-artifact@v1
