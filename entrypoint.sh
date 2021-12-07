@@ -10,9 +10,9 @@ set -u
 
 # Set default values
 Version="1.3.1"
-Package="io.dapr.client"
-Class="DaprClientBuilder"
-Methods="withObjectSerializer withStateSerializer"
+Package=""
+Class=""
+Methods=""
 KeepGoingCount="1"
 
 POSITIONAL=()
@@ -58,7 +58,7 @@ echo "Class     = ${Class}"
 
 for Method in ${Methods}; do
   echo "Fuzzing Method = ${Method}"
-  docker run --rm -v /"$(pwd)/fuzzing/$Method":/fuzzing cifuzz/jazzer-autofuzz \
+  docker run --rm -v /"$(pwd)/fuzzing/$Version/$Package/$Class/$Method":/fuzzing cifuzz/jazzer-autofuzz \
    io.dapr:dapr-sdk:${Version} \
    ${Package}.${Class}::${Method} --keep_going=${KeepGoingCount}
 done
