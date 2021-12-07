@@ -7,18 +7,19 @@ on:
     branches: [ main ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [1.3.1]
+        version: [1.3.0, 1.3.1]
         package: [io.dapr.client]
         include:
           - package: io.dapr.client
             class: DaprClientBuilder
             methods: 'withObjectSerializer withStateSerializer'
+          - package: io.dapr.client
+            class: DaprClientGrpc
+            methods: 'waitForSidecar publishEvent invokeMethod'
         
     steps:
     - uses: actions/checkout@v2
