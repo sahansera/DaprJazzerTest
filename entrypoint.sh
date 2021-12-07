@@ -62,3 +62,15 @@ for Method in ${Methods}; do
    io.dapr:dapr-sdk:${Version} \
    ${Package}.${Class}::${Method} --keep_going=${KeepGoingCount}
 done
+
+# store exit status of grep
+# if code 77 or 0 fuzzer ran successfully
+# if not, something went wrong
+status=$?
+echo $status
+if [ $status -eq 77 ] || [ $status -eq 0 ]
+then
+	echo "Jazzer completed successfully. Artifacts will be available as part of the workflow pipeline"
+else
+	echo "Something went wrong"
+fi
